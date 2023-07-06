@@ -22,6 +22,8 @@
 #include <vector>
 #include <array>
 
+#include <relic_md.h>
+
 namespace bls {
 
 class BLS;
@@ -111,7 +113,7 @@ class Util {
     /*
      * Converts a hex string into a vector of bytes.
      */
-    static std::vector<uint8_t> HexToBytes(const std::string hex) {
+    static std::vector<uint8_t> HexToBytes(const std::string& hex) {
         if (hex.size() % 2 != 0) {
             throw std::invalid_argument("Invalid input string, length must be multple of 2");
         }
