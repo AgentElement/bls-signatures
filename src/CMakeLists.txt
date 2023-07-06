@@ -12,6 +12,7 @@ add_library(dashbls
   ${CMAKE_CURRENT_SOURCE_DIR}/legacy.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/schemes.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/threshold.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/testvectors.cpp
 )
 
 target_include_directories(dashbls
@@ -49,7 +50,22 @@ if(BUILD_BLS_TESTS)
                         PRIVATE catch2)
 endif()
 
+
 if(BUILD_BLS_BENCHMARKS)
   add_executable(runbench test-bench.cpp)
   target_link_libraries(runbench PRIVATE dashbls)
+
+  add_executable(betterbench better-test-bench.cpp)
+  target_link_libraries(betterbench 
+                        PRIVATE dashbls
+                        PRIVATE catch2)
+
+  add_custom_command(TARGET betterbench PRE_BUILD
+                     COMMAND ${CMAKE_COMMAND} -E make_directory
+                     $<TARGET_FILE_DIR:betterbench>/test-vectors)
+
+  add_custom_command(TARGET betterbench PRE_BUILD
+                     COMMAND ${CMAKE_COMMAND} -E copy_directory
+                     ${CMAKE_SOURCE_DIR}/src/test-vectors
+                     $<TARGET_FILE_DIR:betterbench>/test-vectors)
 endif()

@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 99)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS true)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release"
@@ -17,16 +18,20 @@ project(BLS)
 set(BUILD_BLS_PYTHON_BINDINGS "1" CACHE STRING "")
 set(BUILD_BLS_TESTS "1" CACHE STRING "")
 set(BUILD_BLS_BENCHMARKS "1" CACHE STRING "")
+# set(BUILD_BLS_BENCHMARKS_ALT "1" CACHE STRING "")
 
 message(STATUS "Build python bindings: ${BUILD_BLS_PYTHON_BINDINGS}")
 message(STATUS "Build tests: ${BUILD_BLS_TESTS}")
 message(STATUS "Build benchmarks: ${BUILD_BLS_BENCHMARKS}")
+# message(STATUS "Build benchmarks: ${BUILD_BLS_BENCHMARKS_ALT}")
 
 # Add path for custom modules
 set(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH}
   ${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules
 )
+
+message(STATUS "Build python bindings: ${TARGET_FILE_DIR}")
 
 # Relic related options
 
